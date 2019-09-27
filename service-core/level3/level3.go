@@ -2,10 +2,16 @@
 package level3
 
 import "github.com/tigershi/singletongo/service-facade/services"
-import ""
+import "github.com/tigershi/singletongo/service-facade/dao"
+
+var componentDao *dao.ComponentDao
 
 func init() {
 	initservices()
+}
+
+func InitComponentDao(dao *dao.ComponentDao) {
+	componentDao = dao
 }
 
 func initservices() {
