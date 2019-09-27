@@ -1,8 +1,8 @@
 // validator project validator.go
 package validator
 
-type L3Validator struct {
+import "github.com/tigershi/singletongo/service-facade/models"
+
+type L3Validator interface {
 	Validate(req L3BaseReq) bool
 }
-
-var L3Validators []L3Validator

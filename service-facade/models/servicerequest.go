@@ -24,6 +24,6 @@ type StringCollectReq struct {
 }
 
 type ComponentCollectReq struct {
-	L3BaseReq
+	L3QueryReq
 	Messages map[string]string `json:"messages, omitempty"`
 }

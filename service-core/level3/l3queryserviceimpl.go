@@ -16,6 +16,6 @@ func GetL3QueryServiceInstance() *l3QueryServiceImpl {
 	return l3QueryServiceInst
 }
 
-func (qs *l3QueryServiceImpl) GetComponentTranslation(req models.ComponentMessageReq) (result models.ComponentQueryResult, err error) {
-
+func (qs *l3QueryServiceImpl) GetComponentTranslation(req models.ComponentMessageReq) (*models.ComponentQueryResult, error) {
+	result
 }
