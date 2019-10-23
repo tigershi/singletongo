@@ -1,0 +1,122 @@
+definitions:
+  models.HttpResponse:
+    properties:
+      code:
+        example: 0
+        type: integer
+      data:
+        type: object
+      message:
+        example: response infomation
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: ×××@qq.com
+    name: API Support
+    url: http://www.cnblogs.com
+  description: Golang api of demo
+  license: {}
+  termsOfService: http://github.com
+  title: Golang Translation API
+  version: "1.0"
+paths:
+  /translation/singlecomponent/{product}/{version}/{component}/{language}:
+    delete:
+      parameters:
+      - description: product
+        in: path
+        name: product
+        required: true
+        type: string
+      - description: version
+        in: path
+        name: version
+        required: true
+        type: string
+      - description: component
+        in: path
+        name: component
+        required: true
+        type: string
+      - description: language
+        in: path
+        name: language
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.HttpResponse'
+      summary: delete the component translation
+    get:
+      parameters:
+      - description: product
+        in: path
+        name: product
+        required: true
+        type: string
+      - description: version
+        in: path
+        name: version
+        required: true
+        type: string
+      - description: component
+        in: path
+        name: component
+        required: true
+        type: string
+      - description: language
+        in: path
+        name: language
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.HttpResponse'
+      summary: get the component translation
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: product
+        in: path
+        name: product
+        required: true
+        type: string
+      - description: version
+        in: path
+        name: version
+        required: true
+        type: string
+      - description: component
+        in: path
+        name: component
+        required: true
+        type: string
+      - description: language
+        in: path
+        name: language
+        required: true
+        type: string
+      - description: messages
+        in: body
+        name: messages
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.HttpResponse'
+      summary: create or update the component translation
+swagger: "2.0"
