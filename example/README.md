@@ -8,7 +8,8 @@ Through Swagger UI  restFul API to manage resource bundles
 
 # Build
 
-Clone the repository:
+## Clone the repository:
+
 clone git@github.com:tigershi/singletongo.git 
 
 ## Build project:
