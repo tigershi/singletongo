@@ -15,6 +15,7 @@ clone git@github.com:tigershi/singletongo.git
  First, you need to install the go 1.3.x successfully
 
 cd {root_path} # root of project
+
 go build
 
 ## Run:
