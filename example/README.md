@@ -21,7 +21,6 @@ go build
 ## Run:
 ./example
 
-# Swagger UI address:
-   http://localhost:8000/swagger/index.html
-   you can access the swagger UI address to manage the API
+# Manage API:
+ You can access site http://localhost:8000/swagger/index.html, use swagger UI to manage the API
 
