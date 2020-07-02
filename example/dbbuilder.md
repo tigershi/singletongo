@@ -12,38 +12,30 @@ weight: 20
 - **Docker** 
 
 # 2. Create Singleton Database docker image
-## 2.1, Required
-       - Linux 64-bit system and install docker successfully.
+## 2.1, Required 
+       + **Linux 64-bit system and install docker successfully**
 
 ## 2.2, Prepare the init db scripts
-### 2.2.1 prepare the create users and databases sql scripts vipinitdb.sql
+### 2.2.1, prepare the create users and databases sql scripts vipinitdb.sql
 
-
-
-             CREATE USER pgvipconfig WITH PASSWORD 'vipconfig';
+    ```
+              CREATE USER pgvipconfig WITH PASSWORD 'vipconfig';
  
-               CREATE USER pgvipdata WITH PASSWORD 'vipdata';
+              CREATE USER pgvipdata WITH PASSWORD 'vipdata';
  
                CREATE DATABASE vipconfig OWNER pgvipconfig;
  
               CREATE DATABASE vipdata0 OWNER pgvipdata;
  
               CREATE DATABASE vipdata1 OWNER pgvipdata;
-
-### 2.2.2 prepare the create config tab sql scripts vipinitconfigtab.sql
+    ```
+### 2.2.2, prepare the create config tab sql scripts vipinitconfigtab.sql
 
   
-
-create table vip_product(id bigint not null, product character varying(100) not null,
- 
-                                            datasource character varying(50) not null,
- 
-                                                                                status  smallint not null default 0,
- 
-                                                                                created_userid bigint, 
- 
-                                                                                crt_time timestamp);
- 
+```
+create table vip_product(id bigint not null, product character varying(100) not null, datasource character varying(50) not null,
+                          status  smallint not null default 0, created_userid bigint, crt_time timestamp);
+                          
 create sequence vip_product_seq increment by 1 minvalue 1 no maxvalue start with 1;
  
 alter table vip_product add primary key(id);
@@ -51,7 +43,7 @@ alter table vip_product add primary key(id);
 alter table vip_product alter column id set default nextval('vip_product_seq');
  
 alter table vip_product add constraint uk_vip_product unique(product);
-
+```
 
 
 ### 2.2.3 prepare the create data table sql scripts vipinitdatatab.sql
