@@ -12,11 +12,11 @@ weight: 20
 - **Docker** 
 
 # 2. Create Singleton Database docker image
-## 2.1, Required 
+## 2.1 Required 
 + **Linux 64-bit Operation System and install docker successfully**
 
-## 2.2, Prepare the init db scripts
-### 2.2.1, prepare the create users and databases sql scripts vipinitdb.sql
+## 2.2 Prepare the init db scripts
+### 2.2.1 prepare the create users and databases sql scripts vipinitdb.sql
 
 ``` 
 CREATE USER pgvipconfig WITH PASSWORD 'vipconfig';
@@ -30,7 +30,7 @@ CREATE DATABASE vipdata0 OWNER pgvipdata;
 CREATE DATABASE vipdata1 OWNER pgvipdata;
 ```
 
-### 2.2.2, prepare the create config tab sql scripts vipinitconfigtab.sql
+### 2.2.2 prepare the create config tab sql scripts vipinitconfigtab.sql
 
 ```
 create table vip_product(id bigint not null, product character varying(100) not null, datasource character varying(50) not null,
@@ -65,7 +65,7 @@ create table vip_msg(id bigint not null, product character varying(100) not null
 
 
 
-## 2.3, prepare the Dockerfile
+## 2.3 prepare the Dockerfile
 
 
 
@@ -106,7 +106,7 @@ RUN chmod a+x $AUTO_RUN_DIR/vipinstalldb.sh
 
  
  
-### 2.4, prepare the execute shell vipinstalldb.sh
+### 2.4 prepare the execute shell vipinstalldb.sh
    
 ```
 psql -U postgres  -d postgres -f $INITDB_PATH/vipinitdb.sql
@@ -125,7 +125,7 @@ psql -U postgres  -d postgres -f $INITDB_PATH/vipinitdb.sql
 ```
 
 
-## 2.5, build the docker image
+## 2.5 build the docker image
 ### 2.5.1 pull the postgresql DB’s official  docker image
 
 ```
@@ -145,7 +145,7 @@ Dockerfile  vipinitconfigtab.sql  vipinitdatatab.sql  vipinitdb.sql  vipinstalld
   docker build -t vipdb_pg:v1 .
 ```
 
-## 2.6, run docker image
+## 2.6 run docker image
 
 ```
 tiger@docker:~$ docker run --name='vipdb' -d  -p 5432:5432 vipdb_pg:v1
