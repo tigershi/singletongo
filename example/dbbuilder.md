@@ -13,7 +13,7 @@ weight: 20
 
 # 2. Create Singleton Database docker image
 ## 2.1, Required 
-+ **Linux 64-bit system and install docker successfully**
++ **Linux 64-bit Operation System and install docker successfully**
 
 ## 2.2, Prepare the init db scripts
 ### 2.2.1, prepare the create users and databases sql scripts vipinitdb.sql
