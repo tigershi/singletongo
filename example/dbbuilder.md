@@ -190,14 +190,8 @@ syncdata=false
 ```
 spring:
   application:
-    name: Singleton
-# SPRING CONFIG (ConfigFileApplicationListener)
-#  config:
-  # config file name (default to 'application')
-#    name: 
- # location of config file
- #   location: 
-#this the test datasoures
+    name: Singleton 
+#the following is datasoures configuration
   datasource: 
     name: config
     type: com.alibaba.druid.pool.DruidDataSource
