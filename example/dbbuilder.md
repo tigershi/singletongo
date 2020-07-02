@@ -13,22 +13,23 @@ weight: 20
 
 # 2. Create Singleton Database docker image
 ## 2.1, Required 
-       + **Linux 64-bit system and install docker successfully**
++ **Linux 64-bit system and install docker successfully**
 
 ## 2.2, Prepare the init db scripts
 ### 2.2.1, prepare the create users and databases sql scripts vipinitdb.sql
 
-    ```
-              CREATE USER pgvipconfig WITH PASSWORD 'vipconfig';
+``` 
+CREATE USER pgvipconfig WITH PASSWORD 'vipconfig';
  
-              CREATE USER pgvipdata WITH PASSWORD 'vipdata';
+CREATE USER pgvipdata WITH PASSWORD 'vipdata';
  
-               CREATE DATABASE vipconfig OWNER pgvipconfig;
+CREATE DATABASE vipconfig OWNER pgvipconfig;
  
-              CREATE DATABASE vipdata0 OWNER pgvipdata;
- 
-              CREATE DATABASE vipdata1 OWNER pgvipdata;
-    ```
+CREATE DATABASE vipdata0 OWNER pgvipdata;
+
+CREATE DATABASE vipdata1 OWNER pgvipdata;
+```
+
 ### 2.2.2, prepare the create config tab sql scripts vipinitconfigtab.sql
 
   
