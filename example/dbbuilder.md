@@ -32,7 +32,6 @@ CREATE DATABASE vipdata1 OWNER pgvipdata;
 
 ### 2.2.2, prepare the create config tab sql scripts vipinitconfigtab.sql
 
-  
 ```
 create table vip_product(id bigint not null, product character varying(100) not null, datasource character varying(50) not null,
                           status  smallint not null default 0, created_userid bigint, crt_time timestamp);
@@ -49,9 +48,7 @@ alter table vip_product add constraint uk_vip_product unique(product);
 
 ### 2.2.3 prepare the create data table sql scripts vipinitdatatab.sql
 
-
-
-
+```
 create table vip_msg(id bigint not null, product character varying(100) not null,
  
                                          version character varying(50) not null,
@@ -64,7 +61,7 @@ create table vip_msg(id bigint not null, product character varying(100) not null
  
                                          crt_time timestamp) partition by list(product);
  
-  
+```  
 
 
 
@@ -72,7 +69,7 @@ create table vip_msg(id bigint not null, product character varying(100) not null
 
 
 
-
+```
 FROM postgres:10.3
  
 MAINTAINER Shi Hu <shihu@wmware.com>
@@ -104,14 +101,14 @@ COPY ./vipinstalldb.sh $AUTO_RUN_DIR/
  
  
 RUN chmod a+x $AUTO_RUN_DIR/vipinstalldb.sh
-
+```
 
 
  
  
 ### 2.4, prepare the execute shell vipinstalldb.sh
    
-
+```
 psql -U postgres  -d postgres -f $INITDB_PATH/vipinitdb.sql
  
  
@@ -125,26 +122,32 @@ psql -U postgres  -d postgres -f $INITDB_PATH/vipinitdb.sql
  
  
   psql -U pgvipdata -d vipdata1 -f $INITDB_PATH/vipinitdatatab.sql
-
+```
 
 
 ## 2.5, build the docker image
 ### 2.5.1 pull the postgresql DB’s official  docker image
 
+```
   docker pull postgres:10.3
-
+```
 ### 2.5.2 you need the mv the  all file under same directory as following show
 
+```
 tiger@docker:~/initdb$ ls
  
 Dockerfile  vipinitconfigtab.sql  vipinitdatatab.sql  vipinitdb.sql  vipinstalldb.sh
-
+```
 
 ### 2.5.3 execute docker build
 
+```
   docker build -t vipdb_pg:v1 .
+```
 
 ## 2.6, run docker image
+
+```
 tiger@docker:~$ docker run --name='vipdb' -d  -p 5432:5432 vipdb_pg:v1
  
 1c9c7864aa3f21af6d0c27932be833465935418a5b6e8a495a1b58dce44fbb78
@@ -154,17 +157,23 @@ tiger@docker:~$ docker ps
 CONTAINER ID        IMAGE                                                             COMMAND                  CREATED             STATUS              PORTS                    NAMES
  
 1c9c7864aa3f        vipdb_pg:v1   "docker-entrypoint.s..."   4 seconds ago       Up 3 seconds        0.0.0.0:5432->5432/tcp   vipdb
+```
 
 # 3. Compile DB builder installer 
 
 ## 3.1 Clone the repository using Git.
+```
 git clone https://github.com/vmware/singleton.git
+```
 Or
+```
 git clone git@github.com:vmware/singleton.git
+```
 
 ## 3.2 Modify the configurations
 ### 3.2.1 Modify gradle.properties and set datatype to pgdb
 
+```
 branchName =
 
 buildNumber = 0.1.0
@@ -174,9 +183,11 @@ profileName =
 datatype=pgdb
 # add the sync data module
 syncdata=false
+```
 
 ### 3.2.2 Create vip-manager-i18n/src/main/resources/application-pgdb.yml as following:
 
+```
 spring:
   application:
     name: Singleton
@@ -341,13 +352,12 @@ management:
     jmx: 
       exposure:
         exclude: '*'
-
-
+```
 
 ### 3.2.3  Modify vip-manager-i18n/src/main/resources/application.properties as following
 
+```
 ##
-
 #Copyright 2019 VMware, Inc.
 #SPDX-License-Identifier: EPL-2.0
 ##
@@ -358,14 +368,16 @@ build.number.buildnumber=7953895
 build.number.branch=master
 # enable default config 
 spring.profiles.active=pgdb
+```
 
 ### 3.2.4 Build the singleton source code
 
 Go to singleton/g11n-ws to run a build using Gradle.
 
+```
 cd singleton/g11n-ws
 ./gradlew build
-
+```
 Jar files will be generated inside the following location:
 
 singleton/publish (Eg. singleton/publish/singleton-0.1.0.jar)
@@ -375,8 +387,10 @@ singleton/publish (Eg. singleton/publish/singleton-0.1.0.jar)
 ## 4.1 Start Singleton server
 Navigate to singleton/publish and run the Spring Boot main application.
 
+```
 cd ../publish
 java -jar singleton-0.1.0.jar
+```
 
 A user interface for testing all available API endpoints will be available in the following URL:
 
@@ -387,9 +401,13 @@ http://localhost:8091/i18n/api/doc/swagger-ui.html
 
 
 ## 4.2 Add the test data
+
+```
 curl -X PUT "https://localhost:8090/i18n/api/v2/translation/products/Testing/versions/1.0.0" -H "accept: application/json;charset=UTF-8" -H "Content-Type: application/json" -d "{ \"data\": { \"creation\": { \"operationid\": \"test12345\" }, \"dataOrigin\": \"string\", \"machineTranslation\": true, \"productName\": \"Testing\", \"pseudo\": false, \"translation\": [ { \"component\" : \"component1\", \"messages\": { \"sample.apple\" : \"apple\", \"sample.banana\" : \"banana\", \"sample.cat\" : \"cat\", \"sample.dog\" : \"dog\", \"sample.egg\" : \"egg\", \"sample.fly\" : \"fly\", \"sample.giant\" : \"giant\" }, \"locale\" : \"en\"},{ \"component\" : \"component1\", \"messages\" : { \"sample.apple\" : \"manzana\", \"sample.banana\" : \"plátano\", \"sample.cat\" : \"gato\", \"sample.dog\" : \"perro\", \"sample.egg\" : \"huevo\", \"sample.fly\" : \"volar\", \"sample.giant\" : \"gigante\" }, \"locale\" : \"es\"} ], \"version\": \"1.0.0\" }, \"requester\": \"ManulTest\"}"
+```
 You can access other API  use following data.
 
+```
 {
 "prductName": "Testing",
 "version": "1.0.0",
@@ -421,4 +439,4 @@ You can access other API  use following data.
   "locale" : "es"
 }]
 }
- 
+```
