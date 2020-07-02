@@ -5,13 +5,13 @@ draft: false
 weight: 20
 ---
 
-#1. Prerequisites
+# 1. Prerequisites
 
-Java 8 (Java 9+ are not supported, will get compiler issue)
-Git
-Docker 
+- Java 8 (Java 9+ are not supported, will get compiler issue)
+- Git
+- Docker 
 
-#2. Create Singleton Database docker image
+# 2. Create Singleton Database docker image
 2.1, Required
        A, Linux 64-bit system and install docker successfully.
 
@@ -163,7 +163,8 @@ CONTAINER ID        IMAGE                                                       
  
 1c9c7864aa3f        vipdb_pg:v1   "docker-entrypoint.s..."   4 seconds ago       Up 3 seconds        0.0.0.0:5432->5432/tcp   vipdb
 
-#3. Compile DB builder installer 
+# 3. Compile DB builder installer 
+
 3.1 Clone the repository using Git.
 git clone https://github.com/vmware/singleton.git
 Or
@@ -378,7 +379,7 @@ Jar files will be generated inside the following location:
 
 singleton/publish (Eg. singleton/publish/singleton-0.1.0.jar)
 
-#4 To start using Singleton Service
+# 4 To start using Singleton Service
 
 4.1 Start Singleton server
 Navigate to singleton/publish and run the Spring Boot main application.
