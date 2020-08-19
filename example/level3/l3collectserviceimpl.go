@@ -5,7 +5,6 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/tigershi/singletongo/example/models"
 	"github.com/tigershi/singletongo/example/services"
 )
@@ -36,13 +35,6 @@ func (qs *l3CollectServiceImpl) UpdateComponentTranslation(req *models.Component
 		return nil, err
 	}
 
-	log.WithFields(log.Fields{
-		"product":   result.Product,
-		"version":   result.Version,
-		"component": result.Component,
-		"language":  result.Language,
-		"msg":       result.Messages["abc"],
-	}).Info("-----------this the store component result------------")
 	resultModel := new(models.ComponentCollectResult)
 	resultModel.Product = result.Product
 	resultModel.Version = result.Version

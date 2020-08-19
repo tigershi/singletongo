@@ -2,9 +2,10 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	_ "github.com/tigershi/singletongo/example/bundle"
+	_ "github.com/tigershi/singletongo/example/cldr"
 	_ "github.com/tigershi/singletongo/example/docs"
 	"github.com/tigershi/singletongo/example/routers"
 )
@@ -20,6 +21,8 @@ import (
 
 //@host localhost:8000
 func main() {
+	spStr := fmt.Sprintf("abc {0}", "hello")
+	fmt.Println(spStr)
 	gin.SetMode(gin.ReleaseMode)
 	defaultRouter := gin.Default()
 	router := routers.InitTransRouter(defaultRouter)

@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/tigershi/singletongo/example/configs"
 	"github.com/tigershi/singletongo/example/level3"
 	"github.com/tigershi/singletongo/example/models"
 	"github.com/tigershi/singletongo/example/services"
@@ -22,6 +23,8 @@ var queryService services.L3QueryService = level3.GetL3QueryServiceInstance()
 //@Success 200 object models.HttpResponse
 //@Router /translation/singlecomponent/{product}/{version}/{component}/{language} [get]
 func GetComponentTranslation(c *gin.Context) {
+	configs.Logger.Info(c.Request.RequestURI)
+
 	productName := c.Param("product")
 	version := c.Param("version")
 	component := c.Param("component")

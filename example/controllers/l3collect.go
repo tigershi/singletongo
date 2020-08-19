@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
 	"github.com/tigershi/singletongo/example/level3"
 	"github.com/tigershi/singletongo/example/models"
 	"github.com/tigershi/singletongo/example/services"
@@ -50,13 +49,6 @@ func UpdateComponentTranslation(c *gin.Context) {
 	req.Language = language
 	req.Messages = msgs
 	fmt.Printf("-----------------------------\n")
-	log.WithFields(log.Fields{
-		"product":   req.Product,
-		"version":   req.Version,
-		"component": req.Component,
-		"language":  req.Language,
-		"msg":       req.Messages["abc"],
-	}).Info("-----------------------")
 	respondata, err := collectTrans.UpdateComponentTranslation(req)
 	if err != nil {
 		result.Code = 304

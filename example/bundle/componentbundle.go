@@ -9,7 +9,6 @@ import (
 	"path/filepath"
 	"sync"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/tigershi/singletongo/example/models"
 )
 
@@ -51,17 +50,11 @@ func (b *bundleComponentDaoImpl) UpdateComponentTranslation(compContext *models.
 
 	targPath := getTargetFile(compContext.Product, compContext.Version, compContext.Component, compContext.Language)
 
-	log.WithFields(log.Fields{
-		"targetPath": targPath,
-	}).Info("--------------component bundle store---------")
-
 	if !checkFileIsExist(targPath) {
 
 		compJson, err2 := json.MarshalIndent(compContext, "", "   ")
 		if err2 != nil {
-			log.WithFields(log.Fields{
-				"targetPath": targPath,
-			}).Error("--------------convert json Error---------")
+			fmt.Printf(targPath)
 
 		}
 
@@ -75,9 +68,6 @@ func (b *bundleComponentDaoImpl) UpdateComponentTranslation(compContext *models.
 				fmt.Println(errmk)
 			}
 			if err7 := ioutil.WriteFile(targPath, compJson, 0666); err7 != nil {
-				log.WithFields(log.Fields{
-					"targetPath": string(compJson),
-				}).Error("--------------write json json Error---------")
 				return nil, err7
 			}
 		}
@@ -85,9 +75,6 @@ func (b *bundleComponentDaoImpl) UpdateComponentTranslation(compContext *models.
 	} else {
 		filePtr, err3 := os.Open(targPath)
 		if err3 != nil {
-			log.WithFields(log.Fields{
-				"targetPath": targPath,
-			}).Error("--------------open component bundle store Error---------")
 			return nil, err3
 		}
 		queryComp := new(models.ComponentStore)
