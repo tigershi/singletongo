@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	pathFlag := flag.String("path", "E:\\vip-singleton\\fork\\singleton\\g11n-ws", "scan base path")
+	pathFlag := flag.String("path", "E:\\vip-singleton\\test", "scan base path")
 	topLine := flag.Int("topLine", 6, "matching lines content")
 	oldYear := flag.String("oldYear", "2020", "matching copyright old year")
 	newYear := flag.String("newYear", "2019-2020", "repalce the copyright old year to current year")
@@ -66,15 +66,18 @@ func updateCopyRigFile(path string, topLine int, oldYear string, newYear string,
 		oldlen := 0
 		for {
 			line, err2 := rd.ReadString('\n')
-			if err2 != nil || io.EOF == err2 {
-				break
-			} else {
+			if err2 == nil {
 				oldlen = oldlen + len(line)
 				if i < topLine {
 					line = strings.Replace(line, oldYear, newYear, 1)
 					i++
 				}
 				buffer.WriteString(line)
+			} else if err2 == io.EOF {
+				buffer.WriteString(line)
+				break
+			} else {
+				return
 			}
 		}
 		file.Close()
