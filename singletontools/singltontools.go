@@ -12,10 +12,10 @@ import (
 )
 
 func main() {
-	pathFlag := flag.String("path", "E:\\vip-singleton\\fork\\singleton\\test", "scan base path")
+	pathFlag := flag.String("path", "E:\\vip-singleton\\fork\\singleton\\g11n-ws", "scan base path")
 	topLine := flag.Int("topLine", 6, "matching lines content")
-	oldYear := flag.String("oldYear", "2019", "matching copyright old year")
-	newYear := flag.String("newYear", "2020", "repalce the copyright old year to current year")
+	oldYear := flag.String("oldYear", "2020", "matching copyright old year")
+	newYear := flag.String("newYear", "2019-2020", "repalce the copyright old year to current year")
 	fileSuffix := flag.String("suffix", "java,go", "matching file suffix")
 	flag.Parse()
 	println(*pathFlag, *topLine, *oldYear, *newYear, *fileSuffix)
@@ -62,25 +62,33 @@ func updateCopyRigFile(path string, topLine int, oldYear string, newYear string,
 		}
 		rd := bufio.NewReader(file)
 		var buffer bytes.Buffer
-		for i := 0; i < topLine; i++ {
+		i := 0
+		oldlen := 0
+		for {
 			line, err2 := rd.ReadString('\n')
 			if err2 != nil || io.EOF == err2 {
 				break
 			} else {
+				oldlen = oldlen + len(line)
+				if i < topLine {
+					line = strings.Replace(line, oldYear, newYear, 1)
+					i++
+				}
 				buffer.WriteString(line)
 			}
 		}
 		file.Close()
 		bufferStr := buffer.String()
-		matchLine := strings.Replace(bufferStr, oldYear, newYear, 1)
-		if len(bufferStr) == len(matchLine) {
-			file1, err3 := os.OpenFile(fileName, os.O_WRONLY, 0644)
-			if err3 != nil {
-				panic(err3)
-			}
-			defer file1.Close()
-			file1.WriteString(matchLine)
-			fmt.Println(file1.Name())
+		fmt.Println(len(bufferStr) - oldlen)
+		if len(bufferStr) < oldlen {
+			os.Remove(fileName)
 		}
+		file1, err3 := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE, 0644)
+		if err3 != nil {
+			panic(err3)
+		}
+		defer file1.Close()
+		file1.WriteString(bufferStr)
+		fmt.Println(file1.Name())
 	}
 }
